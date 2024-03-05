@@ -3,8 +3,8 @@ This project demonstrates how to override date and time fields in XML using JAXB
 
 - The project uses a custom LocalDateTimeAdapter to convert between XMLGregorianCalendar and LocalDateTime types.
 - The `LocalDateTimeAdapter` class extends `XmlAdapter` and provides a way to convert between `XMLGregorianCalendar` and `LocalDateTime` types.
-- The `unmarshal` method takes an `XMLGregorianCalendar` object and converts it to a `LocalDateTime` object. If the input is `null`, it returns `null`.
-- The `marshal` method takes a `LocalDateTime` object and converts it to an `XMLGregorianCalendar` object. If the input is `null`, it returns `null`.
+- The `unmarshal` method takes an `XMLGregorianCalendar` object and converts it to a `LocalDateTime` object. If the input is `null`, it returns `null`. Otherwise, it converts the `XMLGregorianCalendar` to a `GregorianCalendar` using the `toGregorianCalendar` method, then to a `ZonedDateTime` using the `toZonedDateTime` method, and finally to a `LocalDateTime` using the `toLocalDateTime` method.
+- The `marshal` method takes a `LocalDateTime` object and converts it to an `XMLGregorianCalendar` object. If the input is `null`, it returns `null`. Otherwise, it converts the `LocalDateTime` to a `ZonedDateTime` using the `atZone` method with the system's default time zone, then to a `GregorianCalendar` using the `from` method, and finally to an `XMLGregorianCalendar` using the `newXMLGregorianCalendar` method of a `DatatypeFactory` instance.
 - The XML schema for the model is defined in MyModel.xsd.
 - Unit tests for the LocalDateTimeAdapter are provided in LocalDateTimeAdapterTest.
 
